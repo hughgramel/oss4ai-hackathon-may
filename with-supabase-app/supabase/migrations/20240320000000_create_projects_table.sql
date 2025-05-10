@@ -14,13 +14,13 @@ create table if not exists public.projects (
 alter table public.projects enable row level security;
 
 -- Create policies
-create policy "Users can view their own projects"
+create policy "Anyone can view all projects"
   on public.projects for select
-  using (auth.uid() = user_id);
+  using (true);
 
-create policy "Users can insert their own projects"
+create policy "Authenticated users can insert projects"
   on public.projects for insert
-  with check (auth.uid() = user_id);
+  with check (auth.role() = 'authenticated');
 
 create policy "Users can update their own projects"
   on public.projects for update
