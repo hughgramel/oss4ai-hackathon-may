@@ -1,5 +1,5 @@
 import { createClient } from "@/utils/supabase/server";
-import { BriefcaseIcon, GithubIcon, Loader2 } from "lucide-react";
+import { BriefcaseIcon, GithubIcon } from "lucide-react";
 import { redirect } from "next/navigation";
 import { ProjectSubmissionForm } from "@/components/project-submission-form";
 
@@ -43,7 +43,7 @@ export default async function ProjectsPage() {
                                 className="p-6 border rounded-lg bg-card text-card-foreground hover:shadow-md transition-shadow"
                             >
                                 <div className="flex justify-between items-start">
-                                    <div className="flex-1">
+                                    <div>
                                         <h3 className="text-xl font-semibold mb-2">
                                             {project.title}
                                         </h3>
@@ -55,36 +55,11 @@ export default async function ProjectsPage() {
                                                 href={project.git_link}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="inline-flex items-center gap-2 text-sm text-primary hover:underline mb-4"
+                                                className="inline-flex items-center gap-2 text-sm text-primary hover:underline"
                                             >
                                                 <GithubIcon className="h-4 w-4" />
                                                 View Repository
                                             </a>
-                                        )}
-                                        {project.status === "pending" && (
-                                            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                                                <Loader2 className="h-4 w-4 animate-spin" />
-                                                Processing project...
-                                            </div>
-                                        )}
-                                        {project.analysis && (
-                                            <div className="mt-4 p-4 bg-muted/30 rounded-lg">
-                                                <h4 className="font-semibold mb-2">
-                                                    Project Analysis
-                                                </h4>
-                                                <div className="prose prose-sm max-w-none">
-                                                    <pre className="whitespace-pre-wrap text-sm">
-                                                        {project.analysis}
-                                                    </pre>
-                                                </div>
-                                            </div>
-                                        )}
-                                        {project.error_message && (
-                                            <div className="mt-4 p-4 bg-red-50 text-red-800 rounded-lg">
-                                                <p className="text-sm">
-                                                    Error: {project.error_message}
-                                                </p>
-                                            </div>
                                         )}
                                     </div>
                                     <span

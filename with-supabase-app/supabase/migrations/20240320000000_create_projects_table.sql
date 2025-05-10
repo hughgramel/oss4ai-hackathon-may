@@ -7,9 +7,6 @@ create table if not exists public.projects (
   git_link text,
   status text not null default 'pending'::text,
   user_id uuid references auth.users not null,
-  analysis text,
-  processed_at timestamp with time zone,
-  error_message text,
   constraint projects_status_check check (status in ('pending', 'approved', 'rejected'))
 );
 
@@ -31,5 +28,4 @@ create policy "Users can update their own projects"
 
 -- Create indexes
 create index projects_user_id_idx on public.projects(user_id);
-create index projects_status_idx on public.projects(status);
-create index projects_processed_at_idx on public.projects(processed_at); 
+create index projects_status_idx on public.projects(status); 
