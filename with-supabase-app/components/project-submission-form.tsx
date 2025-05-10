@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { PlusIcon, Loader2 } from "lucide-react";
 import { createClient } from "@/utils/supabase/client";
+import { handleNewProject } from "@/app/actions";
 
 export function ProjectSubmissionForm() {
     const [isOpen, setIsOpen] = useState(false);
@@ -29,21 +30,31 @@ export function ProjectSubmissionForm() {
             } = await supabase.auth.getUser();
             if (!user) throw new Error("User not authenticated");
 
-            const { error } = await supabase.from("projects").insert([
-                {
-                    title: formData.title,
-                    description: formData.description,
-                    git_link: formData.gitLink,
-                    status: "pending",
-                    user_id: user.id,
-                },
-            ]);
+            // Insert the project
+            const { data: project, error } = await supabase
+                .from("projects")
+                .insert([
+                    {
+                        title: formData.title,
+                        description: formData.description,
+                        git_link: formData.gitLink,
+                        status: "pending",
+                        user_id: user.id,
+                    },
+                ])
+                .select()
+                .single();
 
             if (error) throw error;
+            if (!project) throw new Error("Failed to create project");
 
             // Reset form and close modal
             setFormData({ title: "", description: "", gitLink: "" });
             setIsOpen(false);
+
+            // Process the project in the background
+            handleNewProject(project.id);
+
             // Refresh the page to show the new project
             window.location.reload();
         } catch (error) {
