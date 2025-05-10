@@ -49,20 +49,35 @@ export default async function AuthButton() {
     );
   }
   return user ? (
-    <div className="flex items-center gap-4">
-      <span className="text-sm">{user.email}</span>
-      <nav className="flex gap-2">
-        <Button asChild size="sm" variant={"ghost"}>
+    <div className="flex items-center gap-x-2 sm:gap-x-3">
+      <span className="text-sm text-muted-foreground hidden sm:inline-block">{user.email}</span>
+      <nav className="flex flex-wrap gap-1 sm:gap-2">
+        <Button asChild size="sm" variant={"ghost"} className="text-sm px-2 sm:px-3">
           <Link href="/protected">Dashboard</Link>
         </Button>
-        <Button asChild size="sm" variant={"ghost"}>
+        <Button asChild size="sm" variant={"ghost"} className="text-sm px-2 sm:px-3">
           <Link href="/projects">Projects</Link>
         </Button>
-        <Button asChild size="sm" variant={"ghost"}>
+        <Button asChild size="sm" variant={"ghost"} className="text-sm px-2 sm:px-3">
+          <Link href="/kanban">Kanban</Link>
+        </Button>
+        <Button asChild size="sm" variant={"ghost"} className="text-sm px-2 sm:px-3">
+          <Link href="/tasks">Tasks</Link>
+        </Button>
+        <Button asChild size="sm" variant={"ghost"} className="text-sm px-2 sm:px-3">
           <Link href="/team">Team</Link>
         </Button>
+        <Button asChild size="sm" variant={"ghost"} className="text-sm px-2 sm:px-3">
+          <Link href="/chatbot">Chatbot</Link>
+        </Button>
+        <Button asChild size="sm" variant={"ghost"} className="text-sm px-2 sm:px-3">
+          <Link href="/analytics">Analytics</Link>
+        </Button>
+        <Button asChild size="sm" variant={"ghost"} className="text-sm px-2 sm:px-3">
+          <Link href="/settings">Settings</Link>
+        </Button>
       </nav>
-      <form action={signOutAction}>
+      <form action={signOutAction} className="ml-1 sm:ml-2">
         <Button type="submit" variant={"outline"}>
           Sign out
         </Button>
