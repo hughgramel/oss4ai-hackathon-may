@@ -1,0 +1,122 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Project Overview: Next.js Supabase Starter
+
+This document provides an overview of the project structure and key conventions.
+
+## Stack:
+- **Framework**: Next.js (App Router)
+- **Backend/Database**: Supabase
+- **Styling**: Tailwind CSS
+- **UI Components**: Likely shadcn/ui (given `components.json` and `tailwind.config.ts` structure)
+- **Language**: TypeScript
+
+## Project Structure (ASCII Diagram)
+
+```
+with-supabase-app/
+├── .next/                            # Next.js build artifacts
+├── .env.local                        # Environment variables (GOOGLE_API_KEY, Supabase keys, etc. - DO NOT COMMIT)
+├── .gitignore                        # Specifies intentionally untracked files that Git should ignore
+├── README.md                         # Project README
+├── components.json                   # Likely for shadcn/ui configuration
+├── middleware.ts                     # Next.js middleware (e.g., for route protection)
+├── next-env.d.ts                     # TypeScript declarations for Next.js
+├── next.config.ts                    # Next.js configuration file
+├── package-lock.json                 # Records exact versions of dependencies
+├── package.json                      # Project metadata and dependencies
+├── postcss.config.js                 # PostCSS configuration (used by Tailwind CSS)
+├── tailwind.config.ts                # Tailwind CSS configuration
+├── tsconfig.json                     # TypeScript configuration
+├── react-loadable-manifest.json      # Manifest for react-loadable (if used for code splitting)
+├── trace                             # Potentially a build or runtime trace file
+├── app/                              # Next.js App Router (main application code)
+│   ├── (auth-pages)/                 # Route group for authentication pages (e.g., login, signup)
+│   │   ├── forgot-password/
+│   │   │   └── page.tsx              # UI for the forgot password page
+│   │   ├── sign-in/
+│   │   │   └── page.tsx              # UI for the sign-in page
+│   │   ├── sign-up/
+│   │   │   └── page.tsx              # UI for the sign-up page
+│   │   ├── layout.tsx              # Shared layout for pages within (auth-pages)
+│   │   └── smtp-message.tsx        # Component for displaying SMTP related messages
+│   ├── auth/
+│   │   └── callback/
+│   │       └── route.ts            # API route for handling authentication callbacks (e.g., OAuth with Supabase)
+│   ├── protected/                    # Route group for pages that require authentication
+│   │   └── page.tsx                # Example protected page (content may vary)
+│   ├── actions.ts                  # Server Actions for forms and mutations
+│   ├── favicon.ico                 # Favicon for the application
+│   ├── globals.css                 # Global CSS styles
+│   ├── layout.tsx                  # Root layout for the entire application
+│   ├── opengraph-image.tsx         # Dynamically generated Open Graph image for social sharing
+│   ├── page.tsx                    # Homepage of the application (maps to '/')
+│   └── twitter-image.png           # Static image for Twitter cards
+├── components/                       # Reusable React components
+│   ├── tutorial/                   # Components specifically for a tutorial section
+│   │   ├── code-block.tsx
+│   │   ├── connect-supabase-step.tsx
+│   │   ├── fetch-data-step.tsx
+│   │   ├── sign-up-user-step.tsx
+│   │   └── tutorial-step.tsx
+│   ├── typography/                 # Components for text styling (e.g., H1, P, Blockquote)
+│   ├── ui/                         # General-purpose UI elements (often from shadcn/ui like Button, Input)
+│   ├── deploy-button.tsx           # Button component for deploying
+│   ├── env-var-warning.tsx       # Component to warn about missing environment variables
+│   ├── form-message.tsx            # Component to display form submission messages (success/error)
+│   ├── header-auth.tsx             # Header component that changes based on auth state
+│   ├── hero.tsx                    # Hero section component for the homepage
+│   ├── next-logo.tsx               # Next.js logo component
+│   ├── submit-button.tsx           # Standardized submit button for forms
+│   ├── supabase-logo.tsx           # Supabase logo component
+│   └── theme-switcher.tsx          # Component to switch between light/dark themes
+├── lib/                              # Utility functions, Supabase client instance
+│   └── supabase/                     # Supabase specific helper functions (e.g., client, server client)
+└── utils/                            # General utility functions
+    ├── gemini.ts                   # (If added previously) Gemini AI utilities
+    └── supabase/                   # (Alternative location for Supabase utils, check project)
+        ├── client.ts               # Supabase client-side client
+        └── server.ts               # Supabase server-side client
+```
+
+## Key Directories & Files:
+
+*   **`app/`**: Contains all routes, UI, and logic for your application using the Next.js App Router.
+    *   **`layout.tsx`**: Defines the root UI shell.
+    *   **`page.tsx`**: Defines the UI for a specific route segment.
+    *   **Route Groups `(folderName)/`**: Used to organize routes without affecting the URL path (e.g., `(auth-pages)`).
+    *   **`actions.ts`**: Holds server-side functions (Server Actions) that can be called from client components, often used for form submissions and data mutations.
+*   **`components/`**: Shared UI components used across the application.
+    *   **`components/ui/`**: Typically contains components from a UI library like shadcn/ui.
+*   **`lib/` or `utils/supabase/`**: Where the Supabase client is often initialized and helper functions are stored.
+*   **`middleware.ts`**: Handles requests before they are processed by a page. Useful for authentication, redirects, etc.
+*   **`.env.local`**: Stores environment variables. **Crucial for API keys and Supabase config. Not committed to Git.**
+
+## Helpful "Rules" & Guidelines:
+
+1.  **Authentication**:
+    *   Supabase handles authentication. Look for Supabase client usage in `app/actions.ts`, `middleware.ts`, and components in `app/(auth-pages)/`.
+    *   Protected routes are likely managed via `middleware.ts` checking for a Supabase session.
+2.  **Data Fetching**:
+    *   Server Components (`async function Page() {}`) can fetch data directly using `await`.
+    *   Client Components (`"use client";`) fetch data via `useEffect` and `fetch`, or use libraries like SWR/React Query, or call Server Actions.
+    *   Supabase JS client (`supabase.from('table_name').select()`) is the primary way to interact with your database.
+3.  **Styling**:
+    *   Tailwind CSS is used for utility-first styling. Check `tailwind.config.ts` for customizations.
+    *   Global styles are in `app/globals.css`.
+4.  **Server Actions**:
+    *   Forms in `.tsx` files likely call functions exported from `app/actions.ts`. These actions run on the server.
+5.  **Environment Variables**:
+    *   Supabase URL and Anon Key are critical. Store them in `.env.local`.
+    *   Access them in server components/actions via `process.env.VARIABLE_NAME`.
+    *   For client-side access, prefix with `NEXT_PUBLIC_` (e.g., `process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY`) and ensure they are exposed in `next.config.js` if needed (though usually the Supabase client handles this).
+6.  **Adding New Pages/Routes**:
+    *   Create a new folder inside `app/` (e.g., `app/dashboard/`).
+    *   Add a `page.tsx` file to that folder for the route's UI.
+7.  **Supabase Schema**:
+    *   Database schema changes are typically managed via the Supabase dashboard UI or SQL migrations run via the Supabase CLI. Migration files would usually be in a `supabase/migrations/` directory if using the CLI.
+
+This document should serve as a good starting point for understanding the project.
