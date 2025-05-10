@@ -24,7 +24,7 @@ export default async function ProjectsPage() {
             <div className="w-full max-w-3xl">
                 <div className="bg-muted/30 border text-sm p-3 px-5 rounded-md text-foreground flex gap-3 items-center">
                     <BriefcaseIcon size="16" strokeWidth={2} />
-                    Manage all your AI projects from this page.
+                    Manage all your projects from this page.
                 </div>
             </div>
             <div className="flex flex-col gap-6 items-start w-full max-w-3xl">
@@ -33,7 +33,7 @@ export default async function ProjectsPage() {
                     <ProjectSubmissionForm />
                 </div>
                 <p className="text-lg text-muted-foreground">
-                    View, create, and manage your ongoing AI projects.
+                    View, create, and manage your ongoing projects.
                 </p>
                 <div className="w-full space-y-4">
                     {projects && projects.length > 0 ? (

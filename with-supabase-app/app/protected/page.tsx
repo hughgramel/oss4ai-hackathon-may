@@ -22,9 +22,9 @@ export default async function ProtectedPage() {
                 </div>
             </div>
             <div className="flex flex-col gap-6 items-start w-full max-w-3xl">
-                <h1 className="font-bold text-4xl mb-4">AI Project Dashboard</h1>
+                <h1 className="font-bold text-4xl mb-4">Project Pilot Dashboard</h1>
                 <p className="text-lg text-muted-foreground">
-                    Overview of your AI projects and team activities.
+                    Overview of your projects and team activities.
                 </p>
                 {/* Placeholder for future dashboard content */}
                 <div className="w-full p-8 border rounded-lg bg-card text-card-foreground">

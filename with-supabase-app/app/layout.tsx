@@ -15,7 +15,7 @@ const defaultUrl = process.env.VERCEL_URL
 export const metadata = {
     metadataBase: new URL(defaultUrl),
     title: "Project Pilot - Dashboard",
-    description: "Manage your AI projects efficiently.",
+    description: "Manage your projects efficiently.",
 };
 
 const geistSans = Geist({
