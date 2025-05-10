@@ -50,8 +50,7 @@ export default async function AuthButton() {
   }
   return user ? (
     <div className="flex items-center gap-4">
-      <span className="text-sm">{user.email}</span>
-      <nav className="flex gap-2">
+      <nav className="flex gap-1 items-center">
         <Button asChild size="sm" variant={"ghost"}>
           <Link href="/protected">Dashboard</Link>
         </Button>
@@ -59,7 +58,22 @@ export default async function AuthButton() {
           <Link href="/projects">Projects</Link>
         </Button>
         <Button asChild size="sm" variant={"ghost"}>
+          <Link href="/kanban">Kanban</Link>
+        </Button>
+        <Button asChild size="sm" variant={"ghost"}>
+          <Link href="/tasks">Tasks</Link>
+        </Button>
+        <Button asChild size="sm" variant={"ghost"}>
+          <Link href="/chatbot">Chatbot</Link>
+        </Button>
+        <Button asChild size="sm" variant={"ghost"}>
+          <Link href="/analytics">Analytics</Link>
+        </Button>
+        <Button asChild size="sm" variant={"ghost"}>
           <Link href="/team">Team</Link>
+        </Button>
+        <Button asChild size="sm" variant={"ghost"}>
+          <Link href="/settings">Settings</Link>
         </Button>
       </nav>
       <form action={signOutAction}>
