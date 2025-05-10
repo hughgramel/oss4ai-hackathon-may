@@ -53,7 +53,7 @@ export default async function AuthButton() {
       <span className="text-sm">{user.email}</span>
       <nav className="flex gap-2">
         <Button asChild size="sm" variant={"ghost"}>
-          <Link href="/dashboard">Dashboard</Link>
+          <Link href="/protected">Dashboard</Link>
         </Button>
         <Button asChild size="sm" variant={"ghost"}>
           <Link href="/projects">Projects</Link>
