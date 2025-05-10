@@ -43,15 +43,14 @@ export default function RootLayout({
                                 </div>
                             </nav>
                             <div className="flex flex-col gap-20 max-w-5xl p-5">{children}</div>
-
-                            <footer className="w-full flex items-center justify-center border-t mx-auto text-center text-[10px] gap-4 py-4">
-                                <p>
-                                    Created by Jasmine Toyonaga, Sparsh Dadhich, Hugh Gramelspacher,
-                                    and Daniel Busch
-                                </p>
-                                <ThemeSwitcher />
-                            </footer>
                         </div>
+                        <footer className="w-full flex items-center justify-center border-t mx-auto text-center text-[10px] gap-4 py-4">
+                            <p>
+                                Created by Jasmine Toyonaga, Sparsh Dadhich, Hugh Gramelspacher, and
+                                Daniel Busch
+                            </p>
+                            <ThemeSwitcher />
+                        </footer>
                     </main>
                 </ThemeProvider>
             </body>
